@@ -1,0 +1,222 @@
+// PRACTICAL NO.01
+//Program to implement a stack using arrays
+
+
+#include <stdio.h>
+#define MAX 5   // Maximum size of the stack
+
+int stack[MAX];   // Array for stack elements
+int top = -1;     // Top of stack (initially empty)
+
+// Function to push an element into stack
+void push(int value) {
+    if (top == MAX - 1) {   // Check for overflow
+        printf("Stack Overflow! Cannot push %d\n", value);
+    } else {
+        top++;
+        stack[top] = value;
+        printf("%d pushed into stack.\n", value);
+    }
+}
+
+// Function to pop an element from stack
+void pop() {
+    if (top == -1) {   // Check for underflow
+        printf("Stack Underflow! No element to pop.\n");
+    } else {
+        printf("%d popped from stack.\n", stack[top]);
+        top--;
+    }
+}
+
+// Function to display the stack
+void display() {
+    if (top == -1) {
+        printf("Stack is empty.\n");
+    } else {
+        printf("Stack elements are: ");
+        for (int i = top; i >= 0; i--) {
+            printf("%d ", stack[i]);
+        }
+        printf("\n");
+    }
+}
+
+// Main program (menu-driven)
+int main() {
+    int choice, value;
+    while (1) {
+        printf("\n--- Stack Menu ---\n");
+        printf("1. Push\n2. Pop\n3. Display\n4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value to push: ");
+                scanf("%d", &value);
+                push(value);
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                return 0;   // Exit program
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+}
+
+//OUTOUT OF PRACTICAL NO.01
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value to push: 10
+10 pushed into stack.
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value to push: 20
+20 pushed into stack.
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value to push: 30
+30 pushed into stack.
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 3
+Stack elements are: 30 20 10
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 2
+30 popped from stack.
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 3
+Stack elements are: 20 10
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 2
+20 popped from stack.
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 2
+10 popped from stack.
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 2
+Stack Underflow! No element to pop.
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 4
+
+
+
+Dry Run: 
+
+Step
+Operation
+Condition Check
+Action Taken
+top (before→after)
+Stack Content (bottom → top)
+1
+push(10)
+top = -1 < MAX-1 (4) → OK
+top=0; stack[0]=10
+-1 → 0
+[10]
+2
+push(20)
+top = 0 < 4 → OK
+top=1; stack[1]=20
+0 → 1
+[10, 20]
+3
+push(30)
+top = 1 < 4 → OK
+top=2; stack[2]=30
+1 → 2
+[10, 20, 30]
+4
+display
+top=2 ≠ -1 → OK
+Print elements from 2→0
+2 → 2
+Output: 30 20 10
+5
+pop
+top=2 ≠ -1 → OK
+Print "30 popped", top=1
+2 → 1
+[10, 20]
+6
+display
+top=1 ≠ -1 → OK
+Print elements from 1→0
+1 → 1
+Output: 20 10
+7
+pop
+top=1 ≠ -1 → OK
+Print "20 popped", top=0
+1 → 0
+[10]
+8
+pop
+top=0 ≠ -1 → OK
+Print "10 popped", top=-1
+0 → -1
+[] (empty)
+9
+pop
+top=-1 → Underflow
+Print "Stack Underflow!"
+-1 → -1
+[] (still empty)
+
