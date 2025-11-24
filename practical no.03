@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int info;
+    struct Node* nextptr;
+};
+
+struct Node* first = NULL;
+
+void insertFront(int x) {
+    struct Node* n = (struct Node*)malloc(sizeof(struct Node));
+    n->info = x;
+    n->nextptr = first;
+    first = n;
+    printf("%d inserted at front.\n", x);
+}
+
+void deleteFront() {
+    if (first == NULL) {
+        printf("List is empty. Cannot delete.\n");
+    } else {
+        struct Node* t = first;
+        printf("%d deleted from front.\n", t->info);
+        first = first->nextptr;
+        free(t);
+    }
+}
+
+void show() {
+    if (first == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+    printf("List: ");
+    struct Node* p = first;
+    while (p != NULL) {
+        printf("%d -> ", p->info);
+        p = p->nextptr;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    int ch, val;
+
+    while (1) {
+        printf("\n--- Linked List Menu ---\n");
+        printf("1. Insert Front\n");
+        printf("2. Delete Front\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Choose: ");
+        scanf("%d", &ch);
+
+        switch (ch) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &val);
+                insertFront(val);
+                break;
+
+            case 2:
+                deleteFront();
+                break;
+
+            case 3:
+                show();
+                break;
+
+            case 4:
+                exit(0);
+
+            default:
+                printf("Invalid option.\n");
+        }
+    }
+}
+
+output:
+--- Linked List Menu ---
+1. Insert Front
+2. Delete Front
+3. Display
+4. Exit
+Choose: 1
+Enter value: 10
+10 inserted at front.
+
+--- Linked List Menu ---
+Choose: 1
+Enter value: 20
+20 inserted at front.
+
+--- Linked List Menu ---
+Choose: 3
+List: 20 -> 10 -> NULL
+
+--- Linked List Menu ---
+Choose: 2
+20 deleted from front.
+
+--- Linked List Menu ---
+Choose: 3
+List: 10 -> NULL
+
