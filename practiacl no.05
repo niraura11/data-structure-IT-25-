@@ -1,0 +1,199 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int value;
+    struct Node* nextNode;
+};
+
+struct Node* start = NULL;
+
+void addAtStart(int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->value = val;
+
+    if (start == NULL) {
+        start = newNode;
+        start->nextNode = start;
+    } else {
+        struct Node* temp = start;
+        while (temp->nextNode != start) {
+            temp = temp->nextNode;
+        }
+        newNode->nextNode = start;
+        temp->nextNode = newNode;
+        start = newNode;
+    }
+    printf("%d inserted at start.\n", val);
+}
+
+void addAtEnd(int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->value = val;
+
+    if (start == NULL) {
+        start = newNode;
+        start->nextNode = start;
+    } else {
+        struct Node* temp = start;
+        while (temp->nextNode != start) {
+            temp = temp->nextNode;
+        }
+        temp->nextNode = newNode;
+        newNode->nextNode = start;
+    }
+    printf("%d inserted at end.\n", val);
+}
+
+void removeFromStart() {
+    if (start == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node* temp = start;
+    struct Node* last = start;
+
+    while (last->nextNode != start) {
+        last = last->nextNode;
+    }
+
+    if (start == start->nextNode) {
+        printf("%d deleted from start.\n", start->value);
+        free(start);
+        start = NULL;
+    } else {
+        printf("%d deleted from start.\n", start->value);
+        start = start->nextNode;
+        last->nextNode = start;
+        free(temp);
+    }
+}
+
+void removeFromEnd() {
+    if (start == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node* temp = start;
+    struct Node* prevNode = NULL;
+
+    while (temp->nextNode != start) {
+        prevNode = temp;
+        temp = temp->nextNode;
+    }
+
+    if (temp == start) {
+        printf("%d deleted from end.\n", temp->value);
+        free(temp);
+        start = NULL;
+    } else {
+        printf("%d deleted from end.\n", temp->value);
+        prevNode->nextNode = start;
+        free(temp);
+    }
+}
+
+void showList() {
+    if (start == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node* temp = start;
+    printf("Circular Linked List: ");
+    do {
+        printf("%d -> ", temp->value);
+        temp = temp->nextNode;
+    } while (temp != start);
+    printf("(start)\n");
+}
+
+int main() {
+    int choice, val;
+    while (1) {
+        printf("\n--- Circular Linked List Menu ---\n");
+        printf("1. Add at Start\n");
+        printf("2. Add at End\n");
+        printf("3. Remove from Start\n");
+        printf("4. Remove from End\n");
+        printf("5. Show List\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value to insert: ");
+                scanf("%d", &val);
+                addAtStart(val);
+                break;
+            case 2:
+                printf("Enter value to insert: ");
+                scanf("%d", &val);
+                addAtEnd(val);
+                break;
+            case 3:
+                removeFromStart();
+                break;
+            case 4:
+                removeFromEnd();
+                break;
+            case 5:
+                showList();
+                break;
+            case 6:
+                exit(0);
+            default:
+                printf("Invalid choice! Try again.\n");
+        }
+    }
+}
+output:
+--- Circular Linked List Menu ---
+Enter your choice: 1
+Enter value to insert: 10
+10 inserted at start.
+
+--- Circular Linked List Menu ---
+Enter your choice: 2
+Enter value to insert: 20
+20 inserted at end.
+
+--- Circular Linked List Menu ---
+Enter your choice: 2
+Enter value to insert: 30
+30 inserted at end.
+
+--- Circular Linked List Menu ---
+Enter your choice: 5
+Circular Linked List: 10 -> 20 -> 30 -> (start)
+
+--- Circular Linked List Menu ---
+Enter your choice: 1
+Enter value to insert: 5
+5 inserted at start.
+
+--- Circular Linked List Menu ---
+Enter your choice: 5
+Circular Linked List: 5 -> 10 -> 20 -> 30 -> (start)
+
+--- Circular Linked List Menu ---
+Enter your choice: 3
+5 deleted from start.
+
+--- Circular Linked List Menu ---
+Enter your choice: 5
+Circular Linked List: 10 -> 20 -> 30 -> (start)
+
+--- Circular Linked List Menu ---
+Enter your choice: 4
+30 deleted from end.
+
+--- Circular Linked List Menu ---
+Enter your choice: 5
+Circular Linked List: 10 -> 20 -> (start)
+
+--- Circular Linked List Menu ---
+Enter your choice: 6
